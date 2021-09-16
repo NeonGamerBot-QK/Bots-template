@@ -2,9 +2,11 @@
   "name": "bots-template",
   "version": "1.0.0",
   "description": "A template",
-  "main": "build/index.js",
+  "main": "index.js",
   "scripts": {
-    "test": "echo hi"
+    "test": "echo hi",
+    "build": "tsc src/index --outDir build",
+    "start": "ts-node src/index"
   },
   "author": "Neon",
   "license": "ISC",
@@ -12,5 +14,8 @@
     "@discordjs/voice": "^0.6.0",
     "discord.js": "^13.1.0",
     "ffmpeg-static": "^4.4.0"
+  },
+  "devDependencies": {
+    "@types/node-fetch": "^3.0.3"
   }
 }
