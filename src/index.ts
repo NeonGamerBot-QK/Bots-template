@@ -13,20 +13,25 @@ let client: any = new Client({
     presence: { activities: [{ name: 'status text', type: 'WATCHING'}, {name: 'status text', type: 'PLAYING'}], afk:true, status: 'dnd' }
 })
 console.log('e')
+
+client.commands = new Map()
 client.on('ready', () => {
     console.log('Ready on ' + client.user?.username)
-fs.readdirSync('./commands/').filter((file:String) => file.endsWith('.js')).forEach((file:String) =>{
-    try {
-        require('./commands/'+file)
-    } catch (err) {
-        
-    }
+fs.readdirSync(__dirname + '/commands/').filter((file:String) => file.endsWith('.ts')).forEach((file:String) =>{
+    // try {
+    //     require('./commands/'+file)
+    // } catch (err) {
+    //     console.log('cant open file ' + `${__dirname}/command/${file}`)
+    //  return;
+    // }
+    const cmd = require('./commands/'+file).default
+    console.log(cmd)
+client.commands.set(cmd.name, cmd)
 })
-
+console.log(client.commands.size)
 })
 client.prefix = ['!']
 //client.fetch = fetch;
-client.commands = new Map()
 const global:any =  globalThis
 global.client = client
 //test.default()
