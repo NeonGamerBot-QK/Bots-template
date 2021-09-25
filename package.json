@@ -17,6 +17,7 @@
     "ffmpeg-static": "^4.4.0"
   },
   "devDependencies": {
+    "@types/ms": "^0.7.31",
     "@types/node-fetch": "^3.0.3"
   }
 }

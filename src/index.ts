@@ -24,7 +24,9 @@ fs.readdirSync(__dirname + '/commands/').filter((file:String) => file.endsWith('
     //     console.log('cant open file ' + `${__dirname}/command/${file}`)
     //  return;
     // }
-    const cmd = require('./commands/'+file).default
+    let cmd = require('./commands/'+file).default
+    console.log(cmd)
+    cmd = new cmd();
     console.log(cmd)
 client.commands.set(cmd.name, cmd)
 })
@@ -46,6 +48,9 @@ const command = client.commands.get(cmd)
 if(!command) return message.channel.send({ content: "Cannot get command `" + cmd + "`", allowedMentions: {
     parse: []
 }})
-command.execute(message,args,client)
+if(!command.run && !command.execute) return command.MissingParams(message, args, client);
+if(command.run) return command.run(message, args, client);
+if(command.execute) return command.execute(message, args, client)
+command.RunCommand(message,args,client)
 })
 process.on('uncaughtException', console.error)
